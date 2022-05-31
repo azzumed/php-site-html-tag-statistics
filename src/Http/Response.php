@@ -30,9 +30,4 @@ class Response
     {
         return $this->httpCode >= 200 && $this->httpCode <= 299;
     }
-
-    public function getHttpCode()
-    {
-        return $this->content;
-    }
 }
