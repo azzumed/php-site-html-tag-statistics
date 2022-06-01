@@ -12,12 +12,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['filename'])) {
     $filename = $_POST['filename'];
 
     if (empty($errors)) {
-        $tools = new HtmlTools(
-            Filesystem::disk('pages')
-        );
+        $disk = Filesystem::disk('pages');
 
         try {
-            $statistics = $tools->getTagStatistics($filename);
+            $content = $disk->read($filename);
+
+            $tools = new HtmlTools($content);
+            $statistics = $tools->getTagStatistics();
         } catch (CantResolveContentException $e) {
             $errors[] = sprintf(
                 'Unable to get tag statistics from "%s" (%s), try another file',

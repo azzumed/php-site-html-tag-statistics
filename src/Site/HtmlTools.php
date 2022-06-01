@@ -2,25 +2,21 @@
 
 namespace Parser\Site;
 
+use Parser\Filesystem\Content;
 use Parser\Filesystem\FilesystemAdapter;
 
 class HtmlTools
 {
-    protected FilesystemAdapter $adapter;
+    protected Content $content;
 
-    public function __construct(FilesystemAdapter $adapter)
+    public function __construct(Content $content)
     {
-        $this->adapter = $adapter;
+        $this->content = $content;
     }
 
-    /**
-     * @throws \Parser\Exceptions\CantResolveContentException
-     */
-    public function getTagStatistics(string $filename): array
+    public function getTagStatistics(): array
     {
-        $content = $this->adapter->read($filename);
-
-        preg_match_all('/<([A-Za-z\d-]+?)(?:\s.*)?>/', $content->get(), $matches, PREG_SET_ORDER);
+        preg_match_all('/<([A-Za-z\d-]+?)(?:\s.*)?>/', $this->content->get(), $matches, PREG_SET_ORDER);
 
         $result = [];
 

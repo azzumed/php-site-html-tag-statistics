@@ -17,15 +17,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['url'])) {
     }
 
     if (empty($errors)) {
-        $tools = new HtmlTools(
-            Filesystem::customDisk('temp_http', [
-                'driver' => 'http',
-                'root' => $parseUrl['scheme'] . '://' . $parseUrl['host']
-            ])
-        );
+        $disk = Filesystem::customDisk('temp_http', [
+            'driver' => 'http',
+            'root' => $parseUrl['scheme'] . '://' . $parseUrl['host']
+        ]);
 
         try {
-            $statistics = $tools->getTagStatistics($parseUrl['path'] ?? '/');
+            $content = $disk->read($parseUrl['path'] ?? '/');
+
+            $tools = new HtmlTools($content);
+            $statistics = $tools->getTagStatistics();
         } catch (CantResolveContentException $e) {
             $errors[] = sprintf(
                 'Unable to get tag statistics from "%s" (%s), try later or use another site',
@@ -33,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['url'])) {
                 $e->getMessage()
             );
         }
+
     }
 }
 

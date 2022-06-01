@@ -11,11 +11,20 @@ class Filesystem
 {
     protected static array $disks = [];
 
+    /**
+     * @param $name
+     * @return FilesystemAdapter
+     */
     public static function disk($name = null)
     {
         return static::get($name ?? static::getDefaultDisk());
     }
 
+    /**
+     * @param $name
+     * @param $config
+     * @return FilesystemAdapter
+     */
     public static function customDisk($name, $config)
     {
         return static::get($name, $config);
