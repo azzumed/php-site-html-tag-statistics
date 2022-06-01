@@ -35,7 +35,7 @@ $form = <<<HTML
 <a href="/">By URL</a> | <a href="/local_page.php" class="active">By Local Filename</a>
 
 <form action="$_SERVER[REQUEST_URI]" method="post">
-    <label for="url">Filename in local "page" directory:</label>
+    <label for="url">Filename in local "pages" directory:</label>
     <input type="text" name="filename" placeholder="test.html" value="$filename">
     <input type="submit" value="Submit">
 </form>
