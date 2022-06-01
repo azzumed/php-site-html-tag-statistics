@@ -2,6 +2,8 @@
 
 namespace Parser\Http;
 
+use Parser\Contracts\HasFileContentContract;
+
 class Response
 {
     /**
@@ -16,7 +18,7 @@ class Response
         $this->content = $content;
     }
 
-    public function getContent()
+    public function getContent(): string
     {
         return $this->content;
     }

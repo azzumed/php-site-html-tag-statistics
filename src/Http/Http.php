@@ -11,6 +11,8 @@ class Http
      */
     protected $connection;
 
+    protected ?string $url = null;
+
     public function __construct(string $base)
     {
         $this->base = rtrim($base, '/');
@@ -33,6 +35,7 @@ class Http
 
     protected function setRequestUrl($url)
     {
+        $this->url = $url;
         curl_setopt($this->connection, CURLOPT_URL, $url);
     }
 
@@ -60,6 +63,11 @@ class Http
     protected function buildUrl($path): string
     {
         return $this->base . '/' . $path;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
     }
 
     public function __destruct()

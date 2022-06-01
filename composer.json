@@ -5,5 +5,7 @@
             "Parser\\": "src/"
         }
     },
-    "require": {}
+    "require": {
+      "ext-curl": "*"
+    }
 }
